@@ -10,13 +10,19 @@ import java.awt.Graphics2D;
  * Created by plough on 2019/5/22.
  */
 public class WatermarkTest {
-    private WatermarkAttr watermark = new WatermarkAttr("水印测试\\n12345", Color.BLACK, 24);
+    private WatermarkPainter watermarkPainter;
 
     public WatermarkTest() {
-        init();
+        initWatermarkPainter();
+        initGUI();
     }
 
-    private void init() {
+    private void initWatermarkPainter() {
+        WatermarkAttr watermark = new WatermarkAttr("水印测试\\n12345", Color.BLACK, 24);
+        watermarkPainter = WatermarkPainter.createPainter(watermark);
+    }
+
+    private void initGUI() {
         JFrame frame = new JFrame();
         frame.setSize(600, 600);
 
@@ -40,8 +46,7 @@ public class WatermarkTest {
             public void paint(Graphics g) {
                 super.paint(g);
                 Graphics2D g2d = (Graphics2D)g;
-                WatermarkPainter painter = WatermarkPainter.createPainter(watermark);
-                painter.paint(g2d, this.getWidth(), this.getHeight());
+                watermarkPainter.paint(g2d, this.getWidth(), this.getHeight());
             }
         };
     }
