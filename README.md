@@ -19,7 +19,7 @@ painter.paint(g2d, this.getWidth(), this.getHeight());
 
 ## 效果演示
 写了一个测试类，WatermarkTest，可以演示水印的效果：
-![](https://raw.githubusercontent.com/plough/JavaWatermark/master/img/watermarkDemo.png)
+![](https://github.com/plough/JavaWatermark/blob/master/img/watermarkDemo.png?raw=true)
 
 ## 大致的算法
 1. 创建一个空画板（BufferedImage），这个画板的大小，根据绘图区域计算出来（要用到三角函数的知识）。要求是，画板倾斜 20 度后，能完整覆盖绘图区域。
