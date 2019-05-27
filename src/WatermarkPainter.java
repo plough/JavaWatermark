@@ -174,18 +174,16 @@ public class WatermarkPainter {
         updateGap(g.getFontMetrics());
         int blockWidth = getTextBlockWidth(g);
         int blockHeight = getTextBlockHeight(g);
-        int oddStartX = -(blockWidth + horizontalGap) / 2;  // 偶数行的起始位置
+        int evenStartX = -(blockWidth + horizontalGap) / 2;  // 偶数行的起始位置
         int lineNum = 0;  // 当前行号
-        for (int y = getLineHeight(); y < height; y += verticalGap) {
+        for (int y = getLineHeight(); y < height; y += (verticalGap + blockHeight)) {
             // 水印交错排列
             lineNum ++;
-            int startX = lineNum % 2 == 0 ? oddStartX : 0;
+            int startX = lineNum % 2 == 0 ? evenStartX : 0;
 
-            for (int x = startX; x < width; x += horizontalGap) {
+            for (int x = startX; x < width; x += (horizontalGap + blockWidth)) {
                 drawString(g, blockWidth, x, y);
-                x += blockWidth;
             }
-            y += blockHeight;
         }
         g.dispose();
         return image;
@@ -212,7 +210,8 @@ public class WatermarkPainter {
         for (String line : watermarkTextLines) {
             int lineWidth = g.getFontMetrics().stringWidth(line);
             int lineX = midX - lineWidth / 2;
-            g.drawString(line, lineX, y += g.getFontMetrics().getHeight());
+            g.drawString(line, lineX, y);
+            y += g.getFontMetrics().getHeight();
         }
     }
 }
